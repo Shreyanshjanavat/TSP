@@ -42,6 +42,12 @@ const Sidebar = () => {
             <p>FeeStructure</p>
         </div>
       </Link>
+      <Link to ={'/editstudentdata'} style={{textDecoration:"none"}}>
+        <div className='Sidebar-item'>
+            <img src={listproduct_icon} alt=""></img>
+            <p>Editdetails</p>
+        </div>
+      </Link>
      
     </div>
   )
