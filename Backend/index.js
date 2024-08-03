@@ -452,7 +452,81 @@ app.get('/testdata1', async (req, res) => {
         res.status(500).json({ message: 'Server Error' });
     }
 });
+//creating an api for updating the student details
 
+
+app.post('/updatestudent', async (req, res) => {
+  try {
+    // Extract the ID and other fields from the request body
+    const { id, name, RollNo, classNumber, Phoneno } = req.body;
+
+    if (!id) {
+      return res.status(400).json({ error: 'Student ID is required' });
+    }
+
+    // Validate the ID format
+    if (!mongoose.Types.ObjectId.isValid(id)) {
+      return res.status(400).json({ error: 'Invalid Student ID format' });
+    }
+
+    // Update student details
+    const result = await studentdata.updateOne(
+      { _id: id }, // Use _id to find the document
+      {
+        $set: {
+          name,
+          RollNo,
+          classNumber,
+          Phoneno
+        }
+      }
+    );
+
+    if (result.modifiedCount === 0) {
+      return res.status(404).json({ error: 'Student not found or no changes made' });
+    }
+
+    // Send success response
+    res.json({ status: 'ok', message: 'Student details updated successfully' });
+
+  } catch (error) {
+    // Log the error and send a response
+    console.error('Error updating student details:', error);
+    res.status(500).json({ error: 'Error updating student details: ' + error.message });
+  }
+});
+
+  
+//cretating an api for updating the class
+
+app.post('/updateclass', async (req, res) => {
+    const { classNumber } = req.body;
+  
+    if (!classNumber) {
+      return res.status(400).json({ error: 'Class number is required' });
+    }
+  
+    try {
+      // Increment the class number
+      const newClassNumber = parseInt(classNumber) + 1;
+  
+      // Find students in the current class
+      const students = await studentdata.find({ classNumber });
+  
+      if (students.length > 0) {
+        // Update each student's class number
+        for (const student of students) {
+          await studentdata.findByIdAndUpdate(student._id, { classNumber: newClassNumber });
+          console.log(student._id);
+        }
+      }
+  
+      res.json({ message: 'Class updated successfully' });
+    } catch (error) {
+      console.error('Error updating class:', error);
+      res.status(500).json({ error: 'Failed to update class' });
+    }
+  });
 
 //creating an api for fetching data according to the classes
 app.get('/classdata', async (req, res) => {
