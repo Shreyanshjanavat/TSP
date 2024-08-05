@@ -4,6 +4,7 @@ import './FeeStructure.css';
 function FeeStructure() {
   const [ClassNumber, setClassNumber] = useState('');
   const [Fee, setFee] = useState('');
+  const [DueDate, setDueDate] = useState('');
   const [feedback, setFeedback] = useState('');
 
   const handleClassNumberChange = (event) => {
@@ -14,10 +15,14 @@ function FeeStructure() {
     setFee(event.target.value);
   };
 
+  const handleDueDateChange = (event) => {
+    setDueDate(event.target.value);
+  };
+
   const handleSubmit = async (event) => {
     event.preventDefault();
-    if (ClassNumber === '' || Fee === '') {
-      setFeedback('Please select a class and add Fee.');
+    if (ClassNumber === '' || Fee === '' || DueDate === '') {
+      setFeedback('Please select a class, add Fee, and select a due date.');
       return;
     }
 
@@ -28,25 +33,27 @@ function FeeStructure() {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          ClassNumber:ClassNumber,
-          Fee:Fee,
+          ClassNumber: ClassNumber,
+          Fee: Fee,
+          DueDate: DueDate,
         }),
       });
 
       const data = await response.json();
 
       if (data.success) {
-        setFeedback('Message added successfully!');
+        setFeedback('Fee information added successfully!');
       } else {
-        setFeedback('There was an error adding the message.');
+        setFeedback('There was an error adding the fee information.');
       }
 
       // Clear the form after submission
       setClassNumber('');
       setFee('');
+      setDueDate('');
     } catch (error) {
-      console.log('Error in adding message:', error);
-      setFeedback('There was an error adding the message.');
+      console.log('Error in adding fee information:', error);
+      setFeedback('There was an error adding the fee information.');
     }
   };
 
@@ -70,8 +77,13 @@ function FeeStructure() {
           <input type="number" value={Fee} onChange={handleFeeChange} />
         </div>
         <br />
+        <div>
+          <label>Due Date:</label>
+          <input type="date" value={DueDate} onChange={handleDueDateChange} />
+        </div>
+        <br />
         <button type="submit">Submit</button>
-        <p style={{ color: 'ed' }}>{feedback}</p>
+        <p style={{ color: 'red' }}>{feedback}</p>
       </form>
     </div>
   );
