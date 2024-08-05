@@ -210,6 +210,10 @@ const FeeStructure=mongoose.model('FeeModel',{
         type:Number,
         required:true,
     },
+    Duedate:{
+      type:String,
+      required:true,
+    }
 })
 app.post('/addfee',async(req,res)=>{
     try {
@@ -222,6 +226,7 @@ app.post('/addfee',async(req,res)=>{
             id:id,
             ClassNumber:parseInt(req.body.ClassNumber),
             Fee:parseInt(req.body.Fee),
+            Duedate:req.body.DueDate
         })
     
     await new_Fee.save();
