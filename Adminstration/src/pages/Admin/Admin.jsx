@@ -11,7 +11,8 @@ import Addteacher from '../../Components/Addteacher/Addteacher'
 import Showteachers from '../../Components/Listproduct/Showteachers'
 import Examresult from '../../Components/Examresults/Examresult'
 import FeeStructure from '../../Components/FeeStructure/FeeStructure'
-import EditStudentdetails from '../../Components/EditDetails/EditStudentdetails'
+import EditStudentdetails from '../../Components/EditStudentdetails/EditStudentdetails'
+
 
 
 const Admin = () => {
