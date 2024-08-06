@@ -768,7 +768,19 @@ app.post('/testdata', async (req, res) => {
       res.status(500).json({ success: false, error: "Failed to save test data." });
     }
   });
-  
+  //schema for Admin chat box
+  const AdminMessage=mongoose.model('Adminmessage',{
+    id:{
+      type:Number,
+      required:true,
+    },
+    to:{
+      type:String,
+      required:true,
+
+    }
+
+  })
 
 app.post('/teacherremoved',async(req,res)=>{
     await Teacherdata.findOneAndDelete({id:req.body.id});

@@ -12,6 +12,7 @@ import Showteachers from '../../Components/Listproduct/Showteachers'
 import Examresult from '../../Components/Examresults/Examresult'
 import FeeStructure from '../../Components/FeeStructure/FeeStructure'
 import EditStudentdetails from '../../Components/EditStudentdetails/EditStudentdetails'
+import Message from '../../Components/Messages/Message'
 
 
 
@@ -24,6 +25,9 @@ const Admin = () => {
       <Routes>
      
         <Route path='/addtoproduct' element={<Addproduct/>}/>
+        <Route path='/messages' element={<Message/>}/>
+        
+
         <Route path='/editstudentdata' element={<EditStudentdetails/>}/>
         <Route path='/listproduct' element={<Listproduct/>}/>
         <Route path='/examresult' element={<Examresult/>}/>
