@@ -13,6 +13,7 @@ const { type } = require("os");
 app.use(bodyParser.json());
 app.use(express.json());
 app.use(cors());
+mongoose.connect("mongodb+srv://shreyanshjanavat:THjOpSxPaffFA47W@cluster0.hjjzae6.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0");
 
 
 //uploaddation of images
@@ -294,16 +295,16 @@ app.get('/t_data', async (req, res) => {
     }
 });
 //conection of the database
-//mongoose.connect('mongodb+srv://shreyanshjanavat:nlf2030r@cluster0.hjjzae6.mongodb.net/');
+
 //Api creation
-//app.listen(port,(error)=>{
-//    if(!error){
-//        console.log("Server is running on port" +port);
-//    }
-//    else{
-//        console.log("Error",+error);
-//    }
-//})
+app.listen(port,(error)=>{
+    if(!error){
+        console.log("Server is running on port" +port);
+    }
+    else{
+        console.log("Error",+error);
+    }
+})
 
 //databse creation for Studentdata
 const studentdata = mongoose.model('studentmodel', {
@@ -770,19 +771,7 @@ app.post('/testdata', async (req, res) => {
       res.status(500).json({ success: false, error: "Failed to save test data." });
     }
   });
-  //schema for Admin chat box
-  const AdminMessage=mongoose.model('Adminmessage',{
-    id:{
-      type:Number,
-      required:true,
-    },
-    to:{
-      type:Object,
-      required:true,
-
-    }
-
-  })
+  
 
 app.post('/teacherremoved',async(req,res)=>{
     await Teacherdata.findOneAndDelete({id:req.body.id});
