@@ -13,6 +13,8 @@ const { type } = require("os");
 app.use(bodyParser.json());
 app.use(express.json());
 app.use(cors());
+
+
 //uploaddation of images
 const storage=multer.diskStorage({
     destination:'./upload/images',
@@ -292,16 +294,16 @@ app.get('/t_data', async (req, res) => {
     }
 });
 //conection of the database
-mongoose.connect('mongodb://localhost:27017/studentdata');
+//mongoose.connect('mongodb+srv://shreyanshjanavat:nlf2030r@cluster0.hjjzae6.mongodb.net/');
 //Api creation
-app.listen(port,(error)=>{
-    if(!error){
-        console.log("Server is running on port" +port);
-    }
-    else{
-        console.log("Error",+error);
-    }
-})
+//app.listen(port,(error)=>{
+//    if(!error){
+//        console.log("Server is running on port" +port);
+//    }
+//    else{
+//        console.log("Error",+error);
+//    }
+//})
 
 //databse creation for Studentdata
 const studentdata = mongoose.model('studentmodel', {
@@ -775,7 +777,7 @@ app.post('/testdata', async (req, res) => {
       required:true,
     },
     to:{
-      type:String,
+      type:Object,
       required:true,
 
     }
